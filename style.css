@@ -1,0 +1,55 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: goldenrod;
+}
+
+#frame {
+    background-color: red;
+    width: 650px;
+    height: 650px;
+    border-radius: 1em;
+}
+
+h1 {
+    text-align: center;
+    margin: 5px 0px 0px 0px;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    place-content: center;
+    display: grid;
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    margin-left: 75px;
+}
+
+#clear {
+    margin-left: 25px;
+}
+
+button {
+    margin: 10px;
+    background-color: goldenrod;
+    border-radius: 2em;
+    color: white;
+    border: none;
+    font-family: inherit;
+    font-weight: bold;
+}
+
+.blank {
+    background-color: white;
+}

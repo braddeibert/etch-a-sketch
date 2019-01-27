@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>Etch-A-Sketch</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="C:\Users\brade\Projects\Odin_Project\etch-a-sketch\style.css">
+</head>
+
+<body>
+
+    <div id='frame'>
+        <h1>Etch-A-Sketch</h1>
+
+        <div id='buttons'>
+            <button onclick='coloring = 1'>Black and White</button>
+            <button onclick='coloring = 2'>Random</button>
+            <button onclick='coloring = 3'>Shading</button>
+            <button id='clear' onclick="resetGrid()">Clear</button>
+        </div>
+
+        <div id="container">
+        </div>
+        
+    </div>
+
+    <script>
+        var container = document.querySelector('#container');
+        let numSquares;
+        let coloring = 1;
+
+        let drawGrid = (size) => {
+            container.setAttribute('style', 'grid-template-columns: repeat(' + size + ', ' + 500 / size + 'px);');
+
+            //Creating square divs:
+            for (i = 0; i < (size * size); i++) {
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute('class', 'blank');
+                newDiv.setAttribute('style', 'height: ' + 500 / size + 'px; width: ' + 500 / size + 'px;');
+                container.appendChild(newDiv);
+            }
+
+            //Attaching mouseover event listeners to each div
+            //by iterating through nodelist:
+            var boxes = container.querySelectorAll('div');
+
+            boxes.forEach((box) => {
+                let enterCounter = 0, alpha = 0;
+
+                box.addEventListener('mouseover', (e) => {
+                    switch (coloring) {
+                        case (1):
+                            box.setAttribute('style', 'height: ' + 500 / size + 'px; width: ' + 500 / size + 'px; background-color: black;');
+                            break;
+                        case (2):
+                            box.setAttribute('style', 'height: ' + 500 / size + 'px; width: ' + 500 / size + 'px; background-color: rgb('+ Math.floor(Math.random()*255) + ', ' + Math.floor(Math.random()*255) + ', ' + Math.floor(Math.random()*255) + ');');
+                            break;
+                        case (3):
+                            enterCounter = enterCounter + 1;
+                            if (alpha < 1){
+                                alpha = enterCounter * .1;
+                            }
+
+                            box.setAttribute('style', 'height: ' + 500 / size + 'px; width: ' + 500 / size + 'px; background-color: rgba(0, 0, 0, ' + alpha + ');');
+                            break;
+                    }
+                });
+            });
+        };
+
+        let resetGrid = () => {
+            numSquares = undefined;
+            var boxes = container.querySelectorAll('div');
+
+            while (isNaN(numSquares)) {
+                numSquares = parseInt(prompt("Enter desired number of squares per side (between 1-100):"));
+
+                if (isNaN(numSquares) || numSquares > 100 || numSquares < 1) {
+                    alert("Invalid entry.");
+                    numSquares = NaN;
+                }
+            }
+
+            //Removes the default grid:
+            boxes.forEach((box) => {
+                container.removeChild(box);
+            });
+
+            drawGrid(numSquares);
+        };
+
+        drawGrid(16);
+
+    </script>
+</body>
+
+</html>
